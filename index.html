@@ -9,7 +9,6 @@
 		*{padding :0;margin:0;}
 		#Rect
 		{
-			margin-top:50px;
 			margin-left:calc((100% - 800px)/2);
 		}
 		.rect_text{
@@ -19,6 +18,50 @@
 		{
 		    fill:rgba(255,255,255,0.75);
 		}
+        .topInfo
+        {
+            background: #EEE;
+            position: relative;
+            height: 50px;
+            width: 100px;
+            top: 10px;
+            left: 50px;
+            border-radius: 5px;
+            box-shadow: 0px 2px 5px -2px #000;
+            overflow: hidden;
+        }
+        .info
+        {
+            width:100%;
+            height:25px;
+            line-height:25px;
+            text-align:center;
+            color:black;
+            text-overflow: clip;
+            overflow: hidden;
+        }
+        .info1
+        {
+            background: #AAA;
+            border-top-right-radius: 4px;
+            border-top-left-radius: 4px;
+            font-size:12px;
+        }
+        .info2
+        {
+            font-size:18px;
+        }
+        .topInfo .bottom_arrow
+        {
+            height:10px;
+            width:10px;
+            display: block;
+            border-right: 10px solid transparent;
+            border-left:10px solid transparent;
+            border-top:10px solid #EEE;
+            margin:auto;
+
+        }
 	</style>
 </head>
 <body>
@@ -50,8 +93,14 @@
                 <div class="expand-board"  param=700>
 						<!--tiao xin tu-->
 
-
-				        <svg id="Rect" height=600 width=800 ></svg>
+                        <div class='topInfo'>
+                            <div class='info info1'>2018-03-04</div>
+                            <div class='info info2'>MaoYan</div>
+                            <div class='bottom_arrow'></div>
+                        </div> 
+				        <svg id="Rect" height=600 width=800 >
+                                      
+                        </svg>
 
                 </div>
                 <div class="info-board">svg Demo 1</div>
@@ -76,12 +125,12 @@
 
 	var json_data = [{"avgSeatView":"10.9%","avgShowView":"10","avgViewBox":"33.2","boxInfo":"1864.00","boxRate":"29.0%","movieId":1206605,"movieName":"绿皮书","myRefundNumInfo":"--","myRefundRateInfo":"--","onlineBoxRate":"--","refundViewInfo":"--","refundViewRate":"--","releaseInfo":"上映4天","releaseInfoColor":"#666666 1.00","seatRate":"15.8%","showInfo":"57417","showRate":"18.2%","splitAvgViewBox":"29.9","splitBoxInfo":"1678.95","splitBoxRate":"28.7%","splitSumBoxInfo":"1.20亿","sumBoxInfo":"1.34亿","viewInfo":"56.0","viewInfoV2":"56.0万"},{"avgSeatView":"6.4%","avgShowView":"7","avgViewBox":"37.4","boxInfo":"1710.17","boxRate":"26.6%","movieId":410629,"movieName":"阿丽塔：战斗天使","myRefundNumInfo":"--","myRefundRateInfo":"--","onlineBoxRate":"--","refundViewInfo":"--","refundViewRate":"--","releaseInfo":"上映11天","releaseInfoColor":"#666666 1.00","seatRate":"27.0%","showInfo":"74522","showRate":"23.6%","splitAvgViewBox":"34.2","splitBoxInfo":"1561.45","splitBoxRate":"26.6%","splitSumBoxInfo":"7.09亿","sumBoxInfo":"7.76亿","viewInfo":"45.6","viewInfoV2":"45.6万"},{"avgSeatView":"5.6%","avgShowView":"5","avgViewBox":"35.9","boxInfo":"1475.10","boxRate":"22.9%","movieId":247295,"movieName":"驯龙高手3","myRefundNumInfo":"--","myRefundRateInfo":"--","onlineBoxRate":"--","refundViewInfo":"--","refundViewRate":"--","releaseInfo":"上映4天","releaseInfoColor":"#666666 1.00","seatRate":"32.4%","showInfo":"90512","showRate":"28.7%","splitAvgViewBox":"32.8","splitBoxInfo":"1349.47","splitBoxRate":"23.0%","splitSumBoxInfo":"2.15亿","sumBoxInfo":"2.35亿","viewInfo":"41.0","viewInfoV2":"41.0万"},{"avgSeatView":"6.6%","avgShowView":"5","avgViewBox":"35.1","boxInfo":"898.49","boxRate":"13.9%","movieId":248906,"movieName":"流浪地球","myRefundNumInfo":"--","myRefundRateInfo":"--","onlineBoxRate":"--","refundViewInfo":"--","refundViewRate":"--","releaseInfo":"上映28天","releaseInfoColor":"#666666 1.00","seatRate":"15.4%","showInfo":"52570","showRate":"16.6%","splitAvgViewBox":"32.2","splitBoxInfo":"825.28","splitBoxRate":"14.1%","splitSumBoxInfo":"42.30亿","sumBoxInfo":"45.47亿","viewInfo":"25.5","viewInfoV2":"25.5万"},{"avgSeatView":"6.3%","avgShowView":"4","avgViewBox":"36.3","boxInfo":"212.08","boxRate":"3.3%","movieId":1218091,"movieName":"飞驰人生","myRefundNumInfo":"--","myRefundRateInfo":"--","onlineBoxRate":"--","refundViewInfo":"--","refundViewRate":"--","releaseInfo":"上映28天","releaseInfoColor":"#666666 1.00","seatRate":"3.6%","showInfo":"15666","showRate":"4.9%","splitAvgViewBox":"33.4","splitBoxInfo":"195.24","splitBoxRate":"3.3%","splitSumBoxInfo":"15.80亿","sumBoxInfo":"17.02亿","viewInfo":"5.8","viewInfoV2":"5.8万"},{"avgSeatView":"6.2%","avgShowView":"4","avgViewBox":"36.1","boxInfo":"155.98","boxRate":"2.4%","movieId":344869,"movieName":"疯狂的外星人","myRefundNumInfo":"--","myRefundRateInfo":"--","onlineBoxRate":"--","refundViewInfo":"--","refundViewRate":"--","releaseInfo":"上映28天","releaseInfoColor":"#666666 1.00","seatRate":"2.9%","showInfo":"12814","showRate":"4.0%","splitAvgViewBox":"33.3","splitBoxInfo":"144.05","splitBoxRate":"2.4%","splitSumBoxInfo":"20.42亿","sumBoxInfo":"21.98亿","viewInfo":"4.3","viewInfoV2":"4.3万"},{"avgSeatView":"7.3%","avgShowView":"4","avgViewBox":"36.0","boxInfo":"22.01","boxRate":"0.3%","movieId":344262,"movieName":"一吻定情","myRefundNumInfo":"--","myRefundRateInfo":"--","onlineBoxRate":"--","refundViewInfo":"--","refundViewRate":"--","releaseInfo":"上映19天","releaseInfoColor":"#666666 1.00","seatRate":"0.3%","showInfo":"1735","showRate":"0.5%","splitAvgViewBox":"33.0","splitBoxInfo":"20.21","splitBoxRate":"0.3%","splitSumBoxInfo":"1.59亿","sumBoxInfo":"1.72亿","viewInfo":"0.6","viewInfoV2":"6115"},{"avgSeatView":"5.1%","avgShowView":"3","avgViewBox":"35.5","boxInfo":"20.70","boxRate":"0.3%","movieId":580298,"movieName":"新喜剧之王","myRefundNumInfo":"--","myRefundRateInfo":"--","onlineBoxRate":"--","refundViewInfo":"--","refundViewRate":"--","releaseInfo":"上映28天","releaseInfoColor":"#666666 1.00","seatRate":"0.4%","showInfo":"2230","showRate":"0.7%","splitAvgViewBox":"32.9","splitBoxInfo":"19.19","splitBoxRate":"0.3%","splitSumBoxInfo":"5.79亿","sumBoxInfo":"6.22亿","viewInfo":"0.5","viewInfoV2":"5830"},{"avgSeatView":"6.4%","avgShowView":"2","avgViewBox":"33.0","boxInfo":"14.93","boxRate":"0.2%","movieId":1243239,"movieName":"熊出没·原始时代","myRefundNumInfo":"--","myRefundRateInfo":"--","onlineBoxRate":"--","refundViewInfo":"--","refundViewRate":"--","releaseInfo":"上映28天","releaseInfoColor":"#666666 1.00","seatRate":"0.6%","showInfo":"2973","showRate":"0.9%","splitAvgViewBox":"30.5","splitBoxInfo":"13.78","splitBoxRate":"0.2%","splitSumBoxInfo":"6.57亿","sumBoxInfo":"7.08亿","viewInfo":"0.4","viewInfoV2":"4515"},{"avgSeatView":"6.5%","avgShowView":"3","avgViewBox":"30.4","boxInfo":"13.07","boxRate":"0.2%","movieId":1214652,"movieName":"朝花夕誓-于离别之朝束起约定之花","myRefundNumInfo":"--","myRefundRateInfo":"--","onlineBoxRate":"--","refundViewInfo":"--","refundViewRate":"--","releaseInfo":"上映11天","releaseInfoColor":"#666666 1.00","seatRate":"0.3%","showInfo":"1580","showRate":"0.5%","splitAvgViewBox":"27.1","splitBoxInfo":"11.66","splitBoxRate":"0.1%","splitSumBoxInfo":"1506.4万","sumBoxInfo":"1676.9万","viewInfo":"0.4","viewInfoV2":"4301"},{"avgSeatView":"4.6%","avgShowView":"3","avgViewBox":"27.0","boxInfo":"11.70","boxRate":"0.1%","movieId":1251606,"movieName":"古井凶灵","myRefundNumInfo":"--","myRefundRateInfo":"--","onlineBoxRate":"--","refundViewInfo":"--","refundViewRate":"--","releaseInfo":"上映11天","releaseInfoColor":"#666666 1.00","seatRate":"0.3%","showInfo":"1506","showRate":"0.4%","splitAvgViewBox":"24.1","splitBoxInfo":"10.45","splitBoxRate":"0.1%","splitSumBoxInfo":"359.8万","sumBoxInfo":"400.5万","viewInfo":"0.4","viewInfoV2":"4333"},{"avgSeatView":"5.7%","avgShowView":"4","avgViewBox":"29.0","boxInfo":"5.94","boxRate":"<0.1%","movieId":1206836,"movieName":"神探蒲松龄","myRefundNumInfo":"--","myRefundRateInfo":"--","onlineBoxRate":"--","refundViewInfo":"--","refundViewRate":"--","releaseInfo":"上映28天","releaseInfoColor":"#666666 1.00","seatRate":"0.1%","showInfo":"542","showRate":"0.1%","splitAvgViewBox":"27.1","splitBoxInfo":"5.55","splitBoxRate":"<0.1%","splitSumBoxInfo":"1.44亿","sumBoxInfo":"1.52亿","viewInfo":"0.2","viewInfoV2":"2048"},{"avgSeatView":"10.7%","avgShowView":"3","avgViewBox":"36.4","boxInfo":"5.02","boxRate":"<0.1%","movieId":1215114,"movieName":"廉政风云","myRefundNumInfo":"--","myRefundRateInfo":"--","onlineBoxRate":"--","refundViewInfo":"--","refundViewRate":"--","releaseInfo":"上映28天","releaseInfoColor":"#666666 1.00","seatRate":"<0.1%","showInfo":"490","showRate":"0.1%","splitAvgViewBox":"34.2","splitBoxInfo":"4.71","splitBoxRate":"<0.1%","splitSumBoxInfo":"1.07亿","sumBoxInfo":"1.13亿","viewInfo":"0.1","viewInfoV2":"1377"},{"avgSeatView":"63.5%","avgShowView":"70","avgViewBox":"32.5","boxInfo":"2.26","boxRate":"<0.1%","movieId":1223430,"movieName":"浴血广昌","myRefundNumInfo":"--","myRefundRateInfo":"--","onlineBoxRate":"--","refundViewInfo":"--","refundViewRate":"--","releaseInfo":"2018-08","releaseInfoColor":"#666666 1.00","seatRate":"<0.1%","showInfo":"10","showRate":"<0.1%","splitAvgViewBox":"30.0","splitBoxInfo":"2.08","splitBoxRate":"<0.1%","splitSumBoxInfo":"9697.0万","sumBoxInfo":"9704.6万","viewInfo":"0.0","viewInfoV2":"696"},{"avgSeatView":"38.7%","avgShowView":"6","avgViewBox":"34.0","boxInfo":"0.74","boxRate":"<0.1%","movieId":1228750,"movieName":"照相师","myRefundNumInfo":"--","myRefundRateInfo":"--","onlineBoxRate":"--","refundViewInfo":"--","refundViewRate":"--","releaseInfo":"上映83天","releaseInfoColor":"#666666 1.00","seatRate":"<0.1%","showInfo":"39","showRate":"<0.1%","splitAvgViewBox":"33.9","splitBoxInfo":"0.73","splitBoxRate":"<0.1%","splitSumBoxInfo":"1064.8万","sumBoxInfo":"1076.9万","viewInfo":"0.0","viewInfoV2":"218"},{"avgSeatView":"2.9%","avgShowView":"2","avgViewBox":"28.0","boxInfo":"0.74","boxRate":"<0.1%","movieId":1256964,"movieName":"逆罪","myRefundNumInfo":"--","myRefundRateInfo":"--","onlineBoxRate":"--","refundViewInfo":"--","refundViewRate":"--","releaseInfo":"上映4天","releaseInfoColor":"#666666 1.00","seatRate":"<0.1%","showInfo":"207","showRate":"<0.1%","splitAvgViewBox":"25.2","splitBoxInfo":"0.66","splitBoxRate":"<0.1%","splitSumBoxInfo":"7.5万","sumBoxInfo":"8.3万","viewInfo":"0.0","viewInfoV2":"264"},{"avgSeatView":"3.5%","avgShowView":"3","avgViewBox":"36.3","boxInfo":"0.58","boxRate":"<0.1%","movieId":1235560,"movieName":"白蛇：缘起","myRefundNumInfo":"--","myRefundRateInfo":"--","onlineBoxRate":"--","refundViewInfo":"--","refundViewRate":"--","releaseInfo":"上映53天","releaseInfoColor":"#666666 1.00","seatRate":"<0.1%","showInfo":"74","showRate":"<0.1%","splitAvgViewBox":"32.4","splitBoxInfo":"0.52","splitBoxRate":"<0.1%","splitSumBoxInfo":"4.11亿","sumBoxInfo":"4.48亿","viewInfo":"0.0","viewInfoV2":"162"},{"avgSeatView":"10.5%","avgShowView":"2","avgViewBox":"31.5","boxInfo":"0.56","boxRate":"<0.1%","movieId":1205582,"movieName":"今夜在浪漫剧场","myRefundNumInfo":"--","myRefundRateInfo":"--","onlineBoxRate":"--","refundViewInfo":"--","refundViewRate":"--","releaseInfo":"上映19天","releaseInfoColor":"#666666 1.00","seatRate":"<0.1%","showInfo":"97","showRate":"<0.1%","splitAvgViewBox":"28.5","splitBoxInfo":"0.50","splitBoxRate":"<0.1%","splitSumBoxInfo":"1107.0万","sumBoxInfo":"1227.0万","viewInfo":"0.0","viewInfoV2":"178"},{"avgSeatView":"6.9%","avgShowView":"9","avgViewBox":"30.7","boxInfo":"0.55","boxRate":"<0.1%","movieId":344757,"movieName":"蓝色生死恋","myRefundNumInfo":"--","myRefundRateInfo":"--","onlineBoxRate":"--","refundViewInfo":"--","refundViewRate":"--","releaseInfo":"上映19天","releaseInfoColor":"#666666 1.00","seatRate":"<0.1%","showInfo":"21","showRate":"<0.1%","splitAvgViewBox":"28.5","splitBoxInfo":"0.51","splitBoxRate":"<0.1%","splitSumBoxInfo":"137.3万","sumBoxInfo":"148.0万","viewInfo":"0.0","viewInfoV2":"182"},{"avgSeatView":"71.2%","avgShowView":"166","avgViewBox":"32.5","boxInfo":"0.53","boxRate":"<0.1%","movieId":78642,"movieName":"我的渡口","myRefundNumInfo":"--","myRefundRateInfo":"--","onlineBoxRate":"--","refundViewInfo":"--","refundViewRate":"--","releaseInfo":"2012-12","releaseInfoColor":"#666666 1.00","seatRate":"<0.1%","showInfo":"1","showRate":"<0.1%","splitAvgViewBox":"30.0","splitBoxInfo":"0.49","splitBoxRate":"<0.1%","splitSumBoxInfo":"23.0万","sumBoxInfo":"23.1万","viewInfo":"0.0","viewInfoV2":"166"}];
 	//json数据来自猫眼 2019-3-4
-        var rect_box,rect_text,rect_text_2;
+        var rect_box,info_box, svg;
 	//存储节点元素---用于直接索引
-	
+	   info_box = document.getElementsByClassName('topInfo')[0];
 	//直方图描绘函数
 		function draw_rect(){
-			var svg = document.getElementById("Rect");
+			svg = document.getElementById("Rect");
 			var rect ;
 			var height;
 			var text_ ;
@@ -97,17 +146,10 @@
 				boxoffice_num /= 1000; //降低高度
 				height = boxoffice_num;//直方高度
 				rect.outerHTML="<rect class='rect' x="+(50 + i* 35)+" y="+(600-height)+" width=34 height="+ height+" fill='rgb(188,208,197)' onmouseover='rect_show_text("+i+")' onmouseout='rect_hidden_text("+i+")' onclick='rect_clicked("+i+")' clicked_=0 />";
-				text_ = document.createElement("text");//添加电影名字数据
-                svg.appendChild(text_);
-                text_.outerHTML ="<text x="+(50 + i* 35)+" y="+(600-height - 30)+" font-size=10px class='rect_text_2' opacity=0>"+json_data[i]["movieName"]+"</text>";
-                text_ = document.createElement("text");//添加票房数据
-                svg.appendChild(text_);
-                text_.outerHTML ="<text x="+(50 + i* 35)+" y="+(600-height -10)+" font-size=15px class='rect_text' opacity=0>"+boxoffice+"</text>";
                 
 			}
 			rect_box = document.getElementsByClassName("rect");//直方的节点数组
-		    rect_text=document.getElementsByClassName("rect_text");//电影名字的节点数组
-		    rect_text_2 = document.getElementsByClassName("rect_text_2");//电影票房的节点数组
+
             addX_axis(svg,40,760,600);
             addY_axis(svg,40,0,600);
         }
@@ -115,17 +157,18 @@
         function rect_show_text(i)
         {
             rect_box[i].setAttribute("fill", "rgb(145,191,191)");//调整颜色
-            var text_ = rect_text[i];
-            text_.setAttribute("opacity", 1);//字体透明度的改变
-            rect_text_2[i].setAttribute("opacity", 1);
+            var x = rect_box[i].getAttribute("x");
+            var y = rect_box[i].getAttribute("y");
+            info_box.setAttribute("style","overflow:unset;");
+            info_box.children[0].innerHTML = json_data[i]["movieName"];
+            info_box.children[1].innerHTML = json_data[i]["sumBoxInfo"];
+            info_box.style.top = y-15+"px";
+            info_box.style.left = x-32+"px";
         }
         //在鼠标离开矩形时
         function rect_hidden_text(i)
         {
             rect_box[i].setAttribute("fill", "rgb(188,208,197)");
-            var text_ = rect_text[i];
-            text_.setAttribute("opacity", 0);
-            rect_text_2[i].setAttribute("opacity", 0);
         }
         //添加x轴
         function addX_axis(svg,x1,x2, y)
@@ -142,151 +185,170 @@
             line.outerHTML="<line x1="+x+" y1="+y1+" x2="+x+" y2="+y2+" style='stroke:white;stroke-width:1px;'></line>"
         }
 	//鼠标点击时的效果！！存在bug
-        function rect_clicked(i)
-        {
-            if(rect_box[i].getAttribute("clicked_") == "0")
-            {
-                var x = rect_box[i].getAttribute("x"),
-                    y = rect_box[i].getAttribute("y"),
-                    width = rect_box[i].getAttribute("width"),
-                    height = rect_box[i].getAttribute("height");
-                rect_box[i].setAttribute("x", parseInt(x)-5);
-                rect_box[i].setAttribute("y", parseInt(y)+5);
-                rect_box[i].setAttribute("width", parseInt(width)+10);
-                rect_box[i].setAttribute("height", parseInt(height)+10);
-                rect_box[i].setAttribute("clicked_", "1");
-            }
-            else
-            {
-                var x = rect_box[i].getAttribute("x"),
-                    y = rect_box[i].getAttribute("y"),
-                    width = rect_box[i].getAttribute("width"),
-                    height = rect_box[i].getAttribute("height");
-                rect_box[i].setAttribute("x", parseInt(x)+5);
-                rect_box[i].setAttribute("y", parseInt(y)-5);
-                rect_box[i].setAttribute("width", parseInt(width)-10);
-                rect_box[i].setAttribute("height", parseInt(height)-10);
-                rect_box[i].setAttribute("clicked_", "0");
-            }
-        }
+        // function rect_clicked(i)
+        // {
+        //     if(rect_box[i].getAttribute("clicked_") == "0")
+        //     {
+        //         var x = rect_box[i].getAttribute("x"),
+        //             y = rect_box[i].getAttribute("y"),
+        //             width = rect_box[i].getAttribute("width"),
+        //             height = rect_box[i].getAttribute("height");
+        //         rect_box[i].setAttribute("x", parseInt(x)-5);
+        //         rect_box[i].setAttribute("y", parseInt(y)+5);
+        //         rect_box[i].setAttribute("width", parseInt(width)+10);
+        //         rect_box[i].setAttribute("height", parseInt(height)+10);
+        //         rect_box[i].setAttribute("clicked_", "1");
+        //         
+        //     }
+        //     else
+        //     {
+        //         var x = rect_box[i].getAttribute("x"),
+        //             y = rect_box[i].getAttribute("y"),
+        //             width = rect_box[i].getAttribute("width"),
+        //             height = rect_box[i].getAttribute("height");
+        //         rect_box[i].setAttribute("x", parseInt(x)+5);
+        //         rect_box[i].setAttribute("y", parseInt(y)-5);
+        //         rect_box[i].setAttribute("width", parseInt(width)-10);
+        //         rect_box[i].setAttribute("height", parseInt(height)-10);
+        //         rect_box[i].setAttribute("clicked_", "0");
+        //     }
+        // }
 	
+        // function toTop(svg, node)
+        // {
+        //     svg.removeChild(node);
+        //     svg.appendChild(node);
+        // }
 
 	//重复代码----以下是封装上面的函数目的在于可以直接新建RECT对象来创建直方图
         //Object RECT
-        function RECT(svg,data)
-        {
-            this.svg = svg;
-            this.height=svg.getAttribute("height"); 
-            this.width=svg.getAttribute("width");
-            this.num=null;
-            this.rect_box=null;
-            this.rect_text=null;
-            this.rect_text_2=null;
-            this.data=data;
-            this.rect_width=null;
-            this.color1="rgb(188,208,197)";
-            this.color2="rgb(145,191,191)";
-            this.graph_height=null;
-            this.graph_width=null;
-            this.graph_top=null;
-            this.graph_bottom=null;
-            this.graph_left=null;
-            this.graph_right=null;
-        }
-        RECT.prototype={
-            ini:function()
-            {
-                this.graph_height=this.height*0.9;
-                this.graph_width = this.width*.85;
-                this.graph_top = (this.height-this.graph_height) / 2;
-                this.graph_bottom = this.height-this.graph_top;
-                this.graph_left = (this.width-this.graph_width)/2;
-                this.graph_right = this.width-this.graph_left;
-                this.num = this.data.length;
+    //     function RECT(svg,data)
+    //     {
+    //         this.svg = svg;
+    //         this.height=svg.getAttribute("height"); 
+    //         this.width=svg.getAttribute("width");
+    //         this.num=null;
+    //         this.rect_box=null;
+    //         this.rect_text=null;
+    //         this.rect_text_2=null;
+    //         this.data=data;
+    //         this.rect_width=null;
+    //         this.color1="rgb(188,208,197)";
+    //         this.color2="rgb(145,191,191)";
+    //         this.graph_height=null;
+    //         this.graph_width=null;
+    //         this.graph_top=null;
+    //         this.graph_bottom=null;
+    //         this.graph_left=null;
+    //         this.graph_right=null;
+    //     }
+    //     RECT.prototype={
+    //         ini:function()
+    //         {
+    //             this.graph_height=this.height*0.9;
+    //             this.graph_width = this.width*.85;
+    //             this.graph_top = (this.height-this.graph_height) / 2;
+    //             this.graph_bottom = this.height-this.graph_top;
+    //             this.graph_left = (this.width-this.graph_width)/2;
+    //             this.graph_right = this.width-this.graph_left;
+    //             this.num = this.data.length;
                 
-                this.rect_width = parseInt(this.graph_width/this.num);
-                this.draw();
-            },
-            draw:function()
-            {
-                var that = this;    
+    //             this.rect_width = parseInt(this.graph_width/this.num);
+    //             this.draw();
+    //         },
+    //         draw:function()
+    //         {
+    //             var that = this;    
                 
-                for(var i = 0; i < this.num; i ++ ){
-				    this.draw_one_rect(i);
-			    }
-			    this.rect_box = document.getElementsByClassName("rect");
-			    for(var i= 0; i < this.num; i++)
-			    {
-			        this.rect_box[i].addEventListener('mouseenter', function(){that.rect_show_text(i);});
-				    this.rect_box[i].addEventListener('mouseout', function(){that.rect_hidden_text(i);});
-			    }
-		        this.rect_text=document.getElementsByClassName("rect_text");
-		        this.rect_text_2 = document.getElementsByClassName("rect_text_2");
-                this.addX_axis();
-                this.addY_axis();
-            },
+    //             for(var i = 0; i < this.num; i ++ ){
+				//     this.draw_one_rect(i);
+			 //    }
+    //             alert(this.num);
+			 //    this.rect_box = document.getElementsByClassName("rect");
+    //             console.log(this.rect_box[19])
+    //             this.rect_text=document.getElementsByClassName("rect_text");
+    //             this.rect_text_2 = document.getElementsByClassName("rect_text_2");
+			 //    for(var i= 0; i < this.num; i++)
+			 //    {
+			 //        this.rect_box[i].addEventListener('mouseenter', function(){
+    //                     this.rect_box[i].setAttribute("fill",  this.color2);
+    //                     var text_ = this.rect_text[i];
+    //                     text_.setAttribute("opacity", 1);
+    //                     this.rect_text_2[i].setAttribute("opacity", 1);
+    //                 });
+				//     this.rect_box[i].addEventListener('mouseout', function(){
+    //                     this.rect_box[i].setAttribute("fill", this.color1);
+    //                     var text_ = this.rect_text[i];
+    //                     text_.setAttribute("opacity", 0);
+    //                     this.rect_text_2[i].setAttribute("opacity", 0);
+    //                 });
+			 //    }
+		  //       console.log(this.rect_box[19])
+    //             this.addX_axis();
+    //             this.addY_axis();
+    //         },
             
-            draw_one_rect:function(num)
-            {
+    //         draw_one_rect:function(num)
+    //         {
                 
-                var rect = document.createElement("rect");
+    //             var rect = document.createElement("rect");
                 
 
 				
 				
-				var boxoffice = json_data[num]["sumBoxInfo"];
-				var boxoffice_num = parseFloat(json_data[num]["sumBoxInfo"].substring(0,boxoffice.length - 1));
-				if(boxoffice[boxoffice.length -1] =="亿")boxoffice_num *= 10000;
-				console.log(boxoffice_num);
-				boxoffice_num /= 1000;
+				// var boxoffice = json_data[num]["sumBoxInfo"];
+				// var boxoffice_num = parseFloat(json_data[num]["sumBoxInfo"].substring(0,boxoffice.length - 1));
+				// if(boxoffice[boxoffice.length -1] =="亿")boxoffice_num *= 10000;
+				// console.log(boxoffice_num);
+				// boxoffice_num /= 1000;
 				
-				var rect_height = boxoffice_num;
-				//rect
-				var x = (this.graph_left + num* this.rect_width);
-				this.svg.appendChild(rect);
-				rect.outerHTML="<rect class='rect' x="+x+" y="+(this.graph_bottom-rect_height)+" width="+(this.rect_width -1)+" height="+ rect_height+" fill="+this.color1+" />";
+				// var rect_height = boxoffice_num;
+				// //rect
+				// var x = (this.graph_left + num* this.rect_width);
+				// this.svg.appendChild(rect);
+				// rect.outerHTML="<rect class='rect' x="+x+" y="+(this.graph_bottom-rect_height)+" width="+(this.rect_width -1)+" height="+ rect_height+" fill="+this.color1+" />";
 				
 				
-				//text_
-				var text_ = document.createElement("text");
-                this.svg.appendChild(text_);
-                text_.outerHTML ="<text x="+x+" y="+(this.graph_bottom-rect_height - 30)+" font-size=10px class='rect_text_2' opacity=0>"+json_data[num]["movieName"]+"</text>";
-                text_ = document.createElement("text");
-                this.svg.appendChild(text_);
-                text_.outerHTML ="<text x="+x+" y="+(this.graph_bottom-rect_height -10)+" font-size=15px class='rect_text' opacity=0>"+boxoffice+"</text>";
-            },
-            addX_axis:function()
-            {
-                var line = document.createElement("line");
-                this.svg.appendChild(line);
-                line.outerHTML="<line x1="+this.graph_left+" y1="+this.graph_bottom+" x2="+this.graph_right+" y2="+this.graph_bottom+" style='stroke:white;stroke-width:1px;'></line>"
-            },
-            addY_axis:function()
-            {
-                var line = document.createElement("line");
-                this.svg.appendChild(line);
-                line.outerHTML="<line x1="+this.graph_left+" y1="+this.graph_top+" x2="+this.graph_left+" y2="+this.graph_bottom+" style='stroke:white;stroke-width:1px;'></line>"
-            },
-            rect_show_text:function(i)
-            { 
-                that.rect_box[i].setAttribute("fill", that.color2);
-                var text_ = that.rect_text[i];
-                text_.setAttribute("opacity", 1);
-                that.rect_text_2[i].setAttribute("opacity", 1);
-            },
+				// //text_
+				// var text_ = document.createElement("text");
+    //             this.svg.appendChild(text_);
+    //             text_.outerHTML ="<text x="+x+" y="+(this.graph_bottom-rect_height - 30)+" font-size=10px class='rect_text_2' opacity=0>"+json_data[num]["movieName"]+"</text>";
+    //             text_ = document.createElement("text");
+    //             this.svg.appendChild(text_);
+    //             text_.outerHTML ="<text x="+x+" y="+(this.graph_bottom-rect_height -10)+" font-size=15px class='rect_text' opacity=0>"+boxoffice+"</text>";
+    //         },
+    //         addX_axis:function()
+    //         {
+    //             var line = document.createElement("line");
+    //             this.svg.appendChild(line);
+    //             line.outerHTML="<line x1="+this.graph_left+" y1="+this.graph_bottom+" x2="+this.graph_right+" y2="+this.graph_bottom+" style='stroke:white;stroke-width:1px;'></line>"
+    //         },
+    //         addY_axis:function()
+    //         {
+    //             var line = document.createElement("line");
+    //             this.svg.appendChild(line);
+    //             line.outerHTML="<line x1="+this.graph_left+" y1="+this.graph_top+" x2="+this.graph_left+" y2="+this.graph_bottom+" style='stroke:white;stroke-width:1px;'></line>"
+    //         },
+    //         rect_show_text:function(i)
+    //         { 
+    //             that.rect_box[i].setAttribute("fill", that.color2);
+    //             var text_ = that.rect_text[i];
+    //             text_.setAttribute("opacity", 1);
+    //             that.rect_text_2[i].setAttribute("opacity", 1);
+    //         },
         
-            rect_hidden_text:function(i)
-            {   
-                this.rect_box[i].setAttribute("fill", that.color1);
-                var text_ = this.rect_text[i];
-                text_.setAttribute("opacity", 0);
-                this.rect_text_2[i].setAttribute("opacity", 0);
-            }
+    //         rect_hidden_text:function(i)
+    //         {   
+    //             this.rect_box[i].setAttribute("fill", that.color1);
+    //             var text_ = this.rect_text[i];
+    //             text_.setAttribute("opacity", 0);
+    //             this.rect_text_2[i].setAttribute("opacity", 0);
+    //         }
             
-        }
+    //     }
         //封装完毕，存在bug
 	//新建RECT对象，理论上只要调用ini()函数就可以开始绘画
-        var RECT = new RECT(document.getElementById("Rect"),json_data);
+        //var RECT = new RECT(document.getElementById("Rect"),json_data);
 		window.onload = draw_rect();//此处并没有使用对象，而是用前面的方式
 	</script>
 </body>
