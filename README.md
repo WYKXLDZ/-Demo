@@ -7,3 +7,6 @@ CUC 2019-春 数据可视化课题作业
 
 ![HistogramView](./HistogramView.png)
 
+## Tree
+
+![Tree](./Tree.png)
