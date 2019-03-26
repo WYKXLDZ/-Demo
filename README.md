@@ -10,3 +10,7 @@ CUC 2019-春 数据可视化课题作业
 ## Tree
 
 ![Tree](./Tree.png)
+
+## Word Tree
+
+![wordTree](./wordTree.png)

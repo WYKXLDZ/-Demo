@@ -1,0 +1,220 @@
+<html>
+    <head>
+        <title>
+            标准分形树
+        </title>
+        <style type="text/css">
+        	*{padding: 0px;margin: 0px;transition: linear 0.4s;}
+        	circle{transition: linear 0.5s;}
+        </style>
+    </head>
+    <body>
+        <div id="flame"></div>
+        <svg id="mySvg" width=800 height=600 style="position:absolute;bottom:10px;" ></svg>
+        <div style="position:absolute;top:50px;left:100px;font-size:20px;color:black;">数据可视化</div>
+        <div style="position:absolute;top:75px;left:100px;font-size:12px;color:#999;">DataVisulization</div>
+        <div style="position:absolute;top:90px;left:100px;font-size:20px;color:black;">蒋汶娟 刘晓豪</div>
+        <div style="position:absolute;top:120px;left:100px;font-size:12px;color:#999;">JiangWenjuan LiuXiaohao</div>
+    	<div style="position:absolute;top: 150px;left:100px;font-size: 30px;color:black;font-weight: bold;">Tree</div>
+		<div style="position:absolute;top: 50px;left: -10px;font-size: 30px;color:black;height: 200px;width: 200px;background-image: url(./meihua.png);background-size: cover;transform: rotateZ(180deg);z-index: -1;"></div>
+        <script>
+             var w=window.innerWidth
+|| document.documentElement.clientWidth
+|| document.body.clientWidth;
+
+            var h=window.innerHeight
+|| document.documentElement.clientHeight
+|| document.body.clientHeight;
+                //适应浏览器窗口的尺寸
+                var mysvg=document.getElementById("mySvg");
+                mysvg.setAttribute("width",w*0.9);
+                mysvg.setAttribute("height",h*0.9);
+                mysvg.style.marginLeft="5%";
+                mysvg.style.marginTop;
+                //修改svg的高和宽
+
+                // lineX=document.creatElement("line");
+                // mysvg.appendChild(linX);
+                // lineY=document.creatElement("line");
+                // mysvg.appendChild(linY);
+
+                //添加x轴
+            function addX_axis(svg,x1,x2, y)
+            {
+                var line = document.createElement("line");
+                svg.appendChild(line);
+                line.outerHTML="<line x1="+x1+" y1="+y+" x2="+x2+" y2="+y+" style='stroke:rgb(131,175,155);stroke-width:1px;'></line>"
+            }
+            //添加y轴
+            function addY_axis(svg,x,y1, y2)
+            {
+                var line = document.createElement("line");
+                svg.appendChild(line);
+                line.outerHTML="<line x1="+x+" y1="+y1+" x2="+x+" y2="+y2+" style='stroke:rgb(131,175,155);stroke-width:1px;'></line>"
+            }
+            //添加Arrow
+            function addX_Arrow(svg, x, y)
+            {
+                var line1 = document.createElement("line");
+                var line2 = document.createElement("line");
+                svg.appendChild(line1);
+                svg.appendChild(line2);
+                line1.outerHTML="<line x1="+x+" y1="+y+" x2="+(x-5)+" y2="+(y-2)+" style='stroke:rgb(131,175,155);stroke-width:1px;'></line>";
+                line2.outerHTML="<line x1="+x+" y1="+y+" x2="+(x-5)+" y2="+(y+2)+" style='stroke:rgb(131,175,155);stroke-width:1px;'></line>";
+            }
+            function addY_Arrow(svg, x, y)
+            {
+                var line1 = document.createElement("line");
+                var line2 = document.createElement("line");
+                svg.appendChild(line1);
+                svg.appendChild(line2);
+                line1.outerHTML="<line x1="+x+" y1="+y+" x2="+(x-2)+" y2="+(y+5)+" style='stroke:rgb(131,175,155);stroke-width:1px;'></line>";
+                line2.outerHTML="<line x1="+x+" y1="+y+" x2="+(x+2)+" y2="+(y+5)+" style='stroke:rgb(131,175,155);stroke-width:1px;'></line>";
+            }
+            addX_axis(mysvg,w*.15,w*.7,h*.8);
+            addY_axis(mysvg,w*.15,0,h*.8);
+            addX_Arrow(mysvg,w*.7,h*.8);
+            addY_Arrow(mysvg,w*.15, 0);
+            function get_normal_()
+            {
+                //Box-Muller
+               	var x1 = Math.random(),
+               		x2 = Math.random(),
+               		R = Math.sqrt(-2*Math.log(x1));
+               		thelta = 2 * Math.PI * x2,
+               		nor =  R * Math.cos(thelta);
+               	
+               	//E(x) = .5, D(x) = 1/12;
+               	return nor * (1/12) + .5;
+            }
+            for(var i=w*.15 + 10;i<w*.7 -10;i+=1){
+                // var point=document.createElement("circle");
+                // mysvg.appendChild(point);
+                // var point2=document.createElement("circle");
+                // mysvg.appendChild(point2);
+
+                // var u=w/2.2;//均值
+                // var q=45;//方差
+                // var x=i;
+                // var y=(h-150)-(1/(q*Math.sqrt(2*Math.PI))*Math.exp(-(x-u)*(x-u)/(2*q*q))*100*h/2);
+                // point.outerHTML="<circle cx="+x+" cy="+y+" r=1 fill='rgb(131,175,155)'/>";
+
+                // var q=45;//方差
+                // var x= (get_normal_()-.5)*12*q+u;
+                // var y=(h-150)-(1/(q*Math.sqrt(2*Math.PI))*Math.exp(-(x-u)*(x-u)/(2*q*q))*100*h/2)*(0.5+get_normal_());
+                // point2.outerHTML="<circle cx="+x+" cy="+y+" r=1 fill='rgb(131,175,155)'/>";
+                norTransition(i);
+            }
+
+            function norTransition(i)
+            {
+            		var point=document.createElement("circle");
+                mysvg.appendChild(point);
+                
+
+                var u=w/2.2;//均值
+                var q=45;//方差
+                var x=i;
+                var y=(h-150)-(1/(q*Math.sqrt(2*Math.PI))*Math.exp(-(x-u)*(x-u)/(2*q*q))*100*h/2);
+                point.outerHTML="<circle cx="+x+" cy="+y+" r=1 fill='rgb(131,175,155)'/>";
+
+                setTimeout(function(){
+                	var point2=document.createElement("circle");
+                mysvg.appendChild(point2);
+                var q=45;//方差
+                var x= (get_normal_()-.5)*12*q+u;
+                var y=(h-150)-(1/(q*Math.sqrt(2*Math.PI))*Math.exp(-(x-u)*(x-u)/(2*q*q))*100*h/2)*(0.5+get_normal_());
+                point2.outerHTML="<circle cx="+x+" cy="+y+" r=1 fill='rgb(131,175,155)'/>";
+                },500);
+                
+            }
+                var iter=0;//迭代次数
+                var str = "thisisatree"
+                
+                
+                //定义递归二叉树,rate:长度衰减系数，count:递归次数，length：主干树杈长度
+                function show(x0,y0,length,rate,a,count){
+                    
+                    iter++;
+                    var x1=x0;
+                    var y1=y0;
+                    
+                    var x2=x1+length*Math.cos(a);
+                    var y2=y1+length*Math.sin(a);
+                    length=Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
+                    var font_size=length/(str.length);
+                    //线段长度随机
+                    // svgline=document.createElement("line");
+                    // mysvg.appendChild(svgline);
+                    // svgline.outerHTML="<line x1="+x1+" y1="+y1+" x2="+x2+" y2="+y2+" style='stroke:rgb("+(230-count*25)+",89,131);stroke-width:"+(count)+"' />";
+                    text=document.createElement("text");
+                    mysvg.appendChild(text);
+                    text.outerHTML="<text x="+x1+" y="+y1+" textLength="+length+" lengthAdjust='spacingAndGlyphs' transform='rotate("+(a*180/Math.PI)+","+x1+","+y1+")' style='fill:rgb("+(230-count*11.5)+",89,131);font-size:"+font_size+"px;background-color:blue;' >"+str+"</text>";
+                    //迭代次数count控制线段粗细，iter控制绿色
+                    var aL=a-Math.PI/5*(0.5 + get_normal_());
+                    var aR=a+Math.PI/5*(0.5 + get_normal_());
+                    // var am;
+                    // if(Math.random()>0.5)
+                    // 	am=a-Math.PI/8 * (0.5 + 0.5*get_normal_());
+                    // else
+                    // 	am=a+Math.PI/8 * (0.5 + 0.5*get_normal_());
+                    if(count<=1){
+                          var myCircle=document.createElement("circle");
+                          mysvg.appendChild(myCircle);
+                          myCircle.outerHTML="<circle cx="+x1+" cy="+y1+" r="+(3.5*Math.random())+" fill='rgb(255,182,194)'/>"
+                    } 
+                    if(count>0){
+                    	setTimeout(function(){
+                    		
+                    		show(x2,y2,length*rate,rate,aL,count-1);
+                        	show(x2,y2,length*rate,rate,aR,count-1);
+                        
+                    },10);
+                      
+                    }
+                }
+                //调用递归
+                setTimeout(function(){
+                	show((w*0.9)/2,h*0.9,200,0.7,-Math.PI/2,11);
+                },0);
+
+
+                function Obj(){}  //创建一个对象
+                
+                /*为这个对象添加一个具有一个参数的原型方法*/
+                Obj.prototype.draw=function(o){
+                    var speed=0;   //雪花每次下落的数值（10px）
+                    var startPosLeft=Math.ceil(Math.random()*w*0.9 + 10);//设置雪花随机的开始x值的大小
+                    o.style.opacity=(Math.ceil(Math.random()*3)+7)/10;  //设置透明度
+                    o.style.left=startPosLeft+'px'; 
+                    o.style.color="rgb(255,182,194)"
+
+                    o.style.fontSize=12+Math.ceil(Math.random()*14)+'px';
+                    setInterval(function(){
+                        //雪花下落的top值小鱼屏幕的可视区域高时执行下列
+                        if(speed<h*0.9){
+                            o.style.top=speed+'px';
+                            o.style.left=startPosLeft+Math.ceil(Math.random()*8)+'px';
+                            speed+=20;
+                        }
+                        else{
+                            o.style.display='none';
+                        }
+                    },400);
+                }
+
+                var flame=document.getElementById('flame');
+
+                /*使用setInterval定时器每800毫秒创建一个雪花*/
+                setInterval(function(){
+                    var odiv=document.createElement('div');  //创建div
+                    odiv.innerHTML="✽";   //div的内容
+                    odiv.style.position='absolute';  //div的绝对定位
+                    flame.appendChild(odiv);   //把创建好的div放进flame中
+                    var obj=new Obj();   //创建函数
+                    obj.draw(odiv);  //执行obj的draw方法
+                },1000);
+        </script>
+    </body>
+</html>
+
