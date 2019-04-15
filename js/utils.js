@@ -46,7 +46,7 @@ for(var i = 0; i < left_length; i++)
 }
 
 
-var default_num = 0;
+var default_num = 1;
 function main_show(num)
 {
 	left_list[default_num].style.display="none";
