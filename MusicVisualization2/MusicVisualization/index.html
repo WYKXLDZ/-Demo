@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Music Visulization</title>
+
+	<meta charset="utf-8" />
+	<style type="text/css">
+	*{margin:0px;padding:0px;}
+		@font-face {
+		font-family: carel; /*这里是说明调用来的字体名字*/
+		src: url("./carel_term_east.ttf"); /*这里是字体文件路径*/
+		}
+		body{perspective: 600px;}
+		.front_text{
+			position:absolute;
+			top:250px;
+			left:700px;
+			font-size:70px;
+			font-family: carel;
+		}
+		#behind
+		{
+			color:#ff0000ab;
+		}
+		#front
+		{
+			color:#00ffc8b0;
+		}
+		#media{color:#001bff99;}
+		#bottom
+		{
+			position:absolute;
+			top:330px;
+			left:725px;
+			font-size:20px;
+			font-family: carel;
+		}
+		.cube
+		{
+			background:red;
+			position: absolute;
+			bottom:-200px;
+			height:10px;
+		}
+		.cube div{position:absolute;top:100px;left:100px;}
+		.cube .top_{
+			height: 20px;
+		    width: 20px;
+		    background: #ffad60;
+		    transform-style: preserve-3d;
+		    transform: rotateX(90deg) translateY(-10px) translateZ(10px);
+		}
+		.cube .front_{
+			height: 100%;
+		    width: 20px;
+		    background: #ff6400;
+		    box-shadow: 0px 0px 10px -5px #000;
+		}
+		.cube .right_
+		{
+			height: 100%;
+		    width: 20px;
+		    background: #ff3e3e;
+		    transform-style: preserve-3d;
+		    transform: rotateY(90deg) translateZ(10px) translateX(10px);
+		}
+		.board_
+		{
+
+    height: 110px;
+    width: 20px;
+    background: #00a7ff;
+    transform-style: preserve-3d;
+    transform: rotateX(90deg) translateY(-50%) translateZ(45px);
+    position: absolute;
+    left: 20px;
+    bottom: -450px;
+		}
+	</style>
+</head>
+<body>
+	<input type="file" id="getAudio"></input>
+	<div id="behind" class="front_text">MUSIC</div>
+	<div id="media" class="front_text">MUSIC</div>
+	<div id="front" class="front_text">MUSIC</div>
+	<div id="bottom">visualization</div>
+	<script type="text/javascript" src="./d3.v5.min.js"></script>
+	<script type="text/javascript">
+
+		
+		//1. create an audio context
+		var AudioContext = window.AudioContext || window.webkitAudioContext
+
+		var audio_context,
+			source=null,
+			analyser_node,
+			gain_node,
+			file = document.getElementById("getAudio"),
+			fr = new FileReader(),
+			buffer_,
+			array = new Uint8Array(10);
+
+		fr.onload = function(e)
+		{
+			var file_result = e.target.result;
+			console.log("create audio context");
+			audio_context = new AudioContext();
+			console.log("decoding ..")
+			//2. create a source
+			//this is for tag<cideo> / <audio> to get its source
+			audio_context.decodeAudioData(file_result, function(buffer){
+				if(source!== null)source.stop(0);
+				source = audio_context.createBufferSource();
+				buffer_ = buffer;
+				init_();
+				drawBeats();
+			});
+
+			
+			
+		}
+		file.onchange = function()
+		{
+			fr.readAsArrayBuffer(file.files[0]);
+		}
+
+		function init_()
+		{
+			// source = audio_context.createMediaElementSource(audio)
+			//3. create nodes for audio
+			analyser_node = audio_context.createAnalyser();
+			//var dataArray = new Uint8Array(analyser_node.frequencyBinCount)
+			//5. connect source to effecets and output it
+			source.connect(analyser_node);
+			analyser_node.connect(audio_context.destination);
+			source.buffer = buffer_;
+			source.start(0)
+			//gain_node.connect(audio_context.createMediaStreamDestination());
+		}
+		//End create a audio context
+		var body = d3.select("body")
+		
+
+		function drawBeats()
+		{
+			var barray = new Uint8Array(analyser_node.frequencyBinCount)
+            analyser_node.getByteFrequencyData(barray);
+            var sum = 0;
+            for(var i  =0; i < 10; i++)
+            {
+            	array[i] = barray[num[i]]/3;
+            	sum+=array[i];
+            }
+			cube1
+			.data(array)
+			.attr("style", function(d, i){return "left:"+(20+ i*20)+"px;height:"+(d+10)+"px;"})
+			// .selectAll(".board_")
+			// .attr("style", function(d,i){console.log(i); return "height:"+(array[i]+110)+"px;transform: rotateX(90deg) translateY(-50%) translateZ("+(45 - (array[i]/2))+"px);"});
+			for(var i  =0; i < 10; i++)
+            {
+            	array[i] = barray[num[i+10]]/3;
+            	sum+=array[i];
+            }
+			cube2
+			.data(array)
+			.attr("style", function(d, i){return "left:"+(120+ i*20)+"px;bottom:-300px;height:"+(d+10)+"px;"});
+
+			var offset_b = sum/(20*5) + 1,
+				offset_f = offset_b;
+
+			d3.select("#front").attr("style", "top:calc(250px - "+offset_f+"px);left:calc(700px - "+offset_f+"px);");
+			d3.select("#behind").attr("style", "top:calc(250px + "+offset_b+"px);left:calc(700px + "+offset_b+"px);");
+			requestAnimationFrame(drawBeats);
+
+		}
+		var num = new Array();
+		for(var i  = 0; i < 20; i++)
+		{
+			num[i] = (parseInt(Math.random()*1024));
+		}
+		var cube1 = body.selectAll(".cube1")
+			.data(array).enter().append("div")
+			.attr("class", "cube")
+			.attr("style", function(d, i){return "left:"+(20+ i*20)+"px;"})
+		//var boards1 = cube1.selectAll("div_1").data([1]).enter().append("div").attr("class","board_");
+
+		cube1.selectAll("div_2").data([1,2, 3]).enter().append("div")
+			.attr("class", function(d,i){
+				if(i==0)return "front_";
+				if(i==1)return "top_";
+				if(i==2)return "right_";
+			})
+
+		var cube2 = body.selectAll(".cube2")
+			.data(array).enter().append("div")
+			.attr("class", "cube")
+			.attr("style", function(d, i){return "left:"+(120+ i*20)+"px;bottom:-300px;"})
+		cube2.selectAll("div").data([0,1,2]).enter().append("div")
+			.attr("class", function(d,i){
+				if(i==0)return "front_";
+				if(i==1)return "top_";
+				if(i==2)return "right_";
+			})
+	</script>
+</body>
+</html>

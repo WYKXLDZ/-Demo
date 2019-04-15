@@ -1,0 +1,348 @@
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>RectGraph</title>
+	<script src="./d3.v3.min.js"></script>
+	<style type="text/css">
+	*{padding :0;margin:0;}
+	#Rect
+	{
+		position: absolute;
+		z-index: 0px;
+		transition: ease .5s;
+	}
+	.rect_text{
+		fill:white;
+	}
+	.rect_text_2
+	{
+		fill:rgba(255,255,255,0.75);
+	}
+	.topInfo
+	{
+		background: #EEE;
+		position: relative;
+		height: 50px;
+		width: 100px;
+		top: 10px;
+		left: 50px;
+		border-radius: 5px;
+		box-shadow: 0px 7px 20px -9px #000;
+		overflow: hidden;
+		transition: ease .5s;
+	}
+	.info
+	{
+		width:100%;
+		height:25px;
+		line-height:25px;
+		text-align:center;
+		color:black;
+		text-overflow: clip;
+		overflow: hidden;
+	}
+	.info1
+	{
+		background: #c0c0c0;
+		border-top-right-radius: 4px;
+		border-top-left-radius: 4px;
+		font-size:13px;
+		font-weight: bold;
+	}
+	.info2
+	{
+		font-size:13px;
+	}
+	.topInfo .bottom_arrow
+	{
+		height:10px;
+		width:0px;
+		display: block;
+		border-right: 10px solid transparent;
+		border-left:10px solid transparent;
+		border-top:10px solid #EEE;
+		margin:auto;
+	}
+</style>
+</head>
+<body>
+	<div id="flame"></div>
+	<div style="position:absolute;top:500px;right:100px;font-size:20px;width: 350px;height: 200px;color:black;">
+		<div style="position:absolute;top:50px;left:100px;font-size:20px;color:black;">数据可视化</div>
+		<div style="position:absolute;top:75px;left:100px;font-size:12px;color:#999;">DataVisulization</div>
+		<div style="position:absolute;top:100px;left:100px;font-size:14px;color:black;">蒋汶娟 刘晓豪</div>
+		<div style="position:absolute;top:120px;left:100px;font-size:10px;color:#999;">JiangWenjuan LiuXiaohao</div>
+		<div style="position:absolute;top: 150px;left:100px;font-size: 30px;color:black;font-weight: bold;">D3 Visualization</div>  
+	</div>
+	<div style="background-image:url('maoyanicon.png');position: absolute;height: 40px;width: 40px;top: 30px;left:calc((100% - 500px)/2 + 20px);background-size: cover;border-radius: 40px;box-shadow: 0px 2px 5px -2px #000;z-index:4;"></div>
+	<div style="position:absolute;top:20px;left:calc((100% - 500px)/2);height:40px;width:500px;line-height:40px;z-index: 3;font-size: 22px;font-weight: bold;text-align:center;background:white;border-radius:10px;">Free Midi Collection</div> 
+	<a style="display:block;position:absolute;top:50px;left:calc((100% - 500px)/2);height:30px;width:500px;line-height:30px;z-index: 3;font-size: 14px;font-weight: bold;text-align:center;background:white;border-radius:10px;" href="https://freemidi.org/">from: freemidi.org</a>              
+	<div class="expand-board" id="movies" param="700" style="background: rgb(238, 238, 238); height: 700px;position: absolute;z-index: 1;border-right: 1px solid #a2a2a2;">
+		<!--tiao xin tu-->
+
+		<div class='topInfo'>
+
+			<div class='info info1'>2018-04-07</div>
+			<div class='info info2'>free midi</div>
+			<div class='bottom_arrow'></div>
+			<div style="background-image:url('maoyanicon.png');position: absolute;height: 20px;width: 20px;top: -8px;left: -8px;background-size: cover;border-radius: 10px;box-shadow: 0px 2px 5px -2px #000;"></div>
+		</div> 
+	</div>
+
+	<script type="text/javascript">
+		var w = window.innerWidth ||
+				document.documentElement.clientWidth ||
+				document.body.clientWidth;
+
+		var h = window.innerHeight ||
+				document.documentElement.clientHeight ||
+				document.body.clientHeight;
+		var json_data =[{"type":"pop", "number":20},{"type":"pop", "number":40},{"type":"pop", "number":20},{"type":"pop", "number":20},{"type":"pop", "number":20},{"type":"pop", "number":90},{"type":"pop", "number":60},{"type":"pop", "number":90},{"type":"pop", "number":20},{"type":"pop", "number":10}];
+	//json数据 : netease 163 toplist
+	var rect_box, info_box, svg, svg2;
+	var arcs;
+	// //存储节点元素---用于直接索引
+	info_box = document.getElementsByClassName('topInfo')[0];
+
+	var nums = new Array();
+	var types = new Array();
+	for(var i  =0; i < json_data.length; i++)
+	{
+		types[i] = json_data[i]["type"];
+        nums[i] = json_data[i]["number"];//从json_data中获取票房数据
+        
+    }
+    function draw_hist_d3(svg, dataX, dataY)
+    {
+    	if(dataX.length != dataY.length)alert("different lenth!");
+    	var svg_w = w*.55,
+    	svg_h = 650;
+    	var rec_w = (svg_w-20)/ dataX.length-2;
+    	svg.selectAll("rect").data(dataY)
+    	.enter()
+    	.append("rect")
+    	.attr("x",function(d,i){return (w*.025 + i* (rec_w+2));})
+    	.attr("y", function(d){return (svg_h-d-30);})
+    	.attr("width", rec_w)
+    	.attr("height", function(d, i){return d})
+    	.attr("fill",'#297b8bf0' )
+    	.on('mouseover', function(d, i){
+    		rect_show_text(i);
+    		arcs.select("path")[0][i].setAttribute("fill", "#0441a0");
+    		svg2.append("text")
+    		.attr("id","info")
+    		.attr("x",width/2)
+    		.attr("y",height/2)
+    		.attr("text-anchor","middle")
+    		.attr("font-size",36)
+    		.text(types[i]);
+    		svg2.append("text")
+    		.attr("id","value")
+    		.attr("x",width/2)
+    		.attr("y",height/2+25)
+    		.attr("text-anchor","middle")
+    		.attr("font-size",20)
+    		.text(((num_percent[i]*100)+"").substring(0,4)+"%");
+    	})
+    	.on("mouseout",function(d, i){
+    		rect_hidden_text(i);
+    		arcs.select("path")[0][i].setAttribute("fill","rgb("+(230-i*20)+",89,131)");
+    		d3.select("#info")
+    		.remove();
+    		d3.select("#value")
+    		.remove();
+    	})
+        //.attr("onclick",function(d, i){return "rect_clicked("+i+")"})
+        .attr("clicked_", 0)
+        .attr("class", "rect");
+
+        svg.selectAll("type").data(dataX)
+        .enter().append("text")
+        .attr("x",function(d, i){return (w*.025 + i* (rec_w+2)) + (rec_w+2)/2;})
+    	.attr("y",svg_h-10)
+    	.attr("text-anchor","middle")
+    	.attr("font-size",14)
+    	.text(function(d,i){return d});
+
+        rect_box = document.getElementsByClassName("rect");//直方的节点数组
+    }
+        //在鼠标进入矩形时
+        function rect_show_text(i)
+        {
+            rect_box[i].setAttribute("fill", "#0441a0");//调整颜色
+            var x = rect_box[i].getAttribute("x");
+            var y = rect_box[i].getAttribute("y");
+            var w_ =rect_box[i].getAttribute("width")
+            info_box.setAttribute("style","overflow:unset;");
+            info_box.children[0].innerHTML = json_data[i]["type"];
+            info_box.children[1].innerHTML = json_data[i]["number"];
+            info_box.style.top = y-15+"px";
+            info_box.style.left = x-(100-w_)/2+"px";
+        }
+        //在鼠标离开矩形时
+        function rect_hidden_text(i)
+        {
+        	rect_box[i].setAttribute("fill", "#297b8bf0");
+        }
+
+        svg = d3.select("#movies").append("svg").attr("height",650).attr("width", w*.6).attr("style", "background-color:#EEE;");
+		window.onload = draw_hist_d3(svg, types, nums);//此处并没有使用对象，而是用前面的方式
+	</script>
+	<script src="../d3.v3.min.js" charset="utf_8"></script>
+	<script>
+		var width = w *.4;
+		var height = 700;
+		svg2 = d3.select("body")
+		.append("svg")
+		.attr("width", width)
+		.attr("height", height).attr("style","float:right;background:#EEE;");
+         //转化为适合生成饼图的数组
+         // var dataset=[["Chrome",39.49],["IE",29.06],["QQ",4.84],["2345",4.28],["搜狗高速",4.19],["猎豹",2.24],["其他",15.91]];
+         var dataset = []
+         var sum = 0
+         for(var i  = 0; i < nums.length; i++){
+         	sum +=nums[i]
+         }
+         num_percent=[]
+         for(var i  = 0; i < nums.length; i++){
+         	num_percent[i] = nums[i]/sum;
+         	dataset[i] = [types[i], nums[i]/sum]
+         }
+         //构建一个饼图布局，使用默认的方法访问数据，默认不排序。起始弧度为0，结束弧度为2π,返回的layout可以是对象，也可以是函数
+         var pie = d3.layout.pie()
+                 .value(function(d){return d[1];});//设置value值为上面的2二维数组中的数字
+         var piedata=pie(dataset);//piedata 就是转换后的数据
+         //外半径和内半径
+         
+         var outerRadius=w*.12;
+        // var innerRadius=outerRadius*.6;
+         //创建弧生成器
+         var arc = d3.svg.arc()
+             //.innerRadius(innerRadius)
+             .outerRadius(outerRadius);
+         var color = d3.scale.category20();//有20种颜色的颜色比例尺
+         //添加对应数目的弧组，即<g>元素
+         arcs=svg2.selectAll("g")
+                     .data(piedata)//绑定转换后数据
+                     .enter()
+                     .append("g")
+                     .attr("transform","translate("+width/2+","+height/2+")");
+         //对每个g元素添加路径元素
+         arcs.append("path")//每个g元素都追加一个path元素用绑定到这个g的数据d生成路径信息
+         .attr("fill", function(d,i){return "rgb("+(230-i*20)+",89,131)";})
+         .attr("d",function(d){
+                     return arc(d);//使用弧生成器将角度转为弧度（d3使用弧度绘制）
+                 })
+         .on('mouseover',function(d,i){
+         	rect_show_text(i);
+         	d3.select(this)
+         	.attr("fill", "#0441a0");	
+         	svg2.append("text")
+         	.attr("id","info")
+         	.attr("x",width/2)
+         	.attr("y",height/2)
+         	.attr("text-anchor","middle")
+         	.attr("font-size",36)
+         	.text(d.data[0]);
+         	svg2.append("text")
+         	.attr("id","value")
+         	.attr("x",width/2)
+         	.attr("y",height/2+25)
+         	.attr("text-anchor","middle")
+         	.attr("font-size",20)
+         	.text(((d.value*100)+"").substring(0,4)+"%");
+         })
+         .on('mouseout',function(d,i){
+         	rect_hidden_text(i);
+         	d3.select(this)
+         	.attr("fill","rgb("+(230-i*20)+",89,131)");	
+         	d3.select("#info")
+         	.remove();
+         	d3.select("#value")
+         	.remove();
+         })
+             .transition()					//设置动画
+             .ease('bounce')					//动画效果
+             .duration(2000)					//持续时间
+             .attrTween('d',tweenPie)		//两个属性之间平滑的过渡。
+             .transition()
+             .ease("elastic")
+             .delay(function(d,i){return 2000+i*50})	//设置了一个延迟时间，让每一个内半径不在同一个时间缩小。
+             .duration(750)
+             .attrTween('d',tweenDonut);
+             function tweenPie(b){
+                 //这里将每一个的弧的开始角度和结束角度都设置成了0
+                 //然后向他们原始的角度(b)开始过渡，完成动画。
+                 b.innerRadius=0;	
+                 var i=d3.interpolate({startAngle:0,endAngle:0},b);
+                 //下面的函数就是过渡函数，他是执行多次最终达到想要的状态。
+                 return function(t){return arc(i(t));};
+             }
+
+             function tweenDonut(b){
+                 //设置内半径不为0
+                 b.innerRadius=outerRadius*.6;
+                 //然后内半径由0开始过渡
+                 var i=d3.interpolate({innerRadius:0},b);
+                 return function(t){return arc(i(t));};
+             }
+
+
+              // var label=svg.selectAll('.label')      //添加右上角的标签
+              //        .data(piedata)
+              //        .enter()
+              //        .append('g')
+              //        .attr("transform","translate("+(width-50)+","+10+")")
+              //        ;   
+              //    label.append('rect')        //标签中的矩形
+              //        .style('fill',function(d,i){
+              //            return color(i);
+              //        })
+              //        .attr('x',function(d,i){
+              //            return 0;
+              //        })
+              //        .attr("y",function(d,i){
+              //            return 10+i*30;
+              //        })
+              //        .attr('rx','5')     //rx=ry 会出现圆角
+              //        .attr('ry','5')
+              //        .attr('width',50)
+              //        .attr('height',20)
+              //        ;
+                 // label.append('text')            //标签中的文字
+                 //     .attr('x',function(d,i){
+                 //         return 25;              //因为rect宽度是50，所以把文字偏移25,在后面再将文字设置居中
+                 //     })
+                 //     .attr("y",function(d,i){        
+                 //         return 15+10+i*30;
+                 //     })
+                 //     .text(function(d){
+                 //         return d.data[0];
+                 //     })
+                 //     .style({
+                 //         "font-size":"10px",
+                 //         "text-anchor":"middle",
+                 //         'fill':"white",
+                 //         "font-weight":600
+                 //     })
+         //为组中每个元素添加文本
+         // arcs.append("text").transition(100)
+         //    .delay(2000)//每个g元素都追加一个path元素用绑定到这个g的数据d生成路径信息
+         //     .attr("transform",function(d){ 
+         //        console.log(d)
+         //        console.log(arc.centroid(d))
+         //         return "translate("+arc.centroid(d)[0]+","+arc.centroid(d)[1]+")";//计算每个弧形的中心点（几何中心）
+         //     })
+         //     .attr("text-anchor","middle")
+         //     .attr("font-size",12)
+         //     .text(function(d){
+         //         return d.value;//这里已经转为对象了
+         //     });
+
+
+         
+     </script>
+ </body>
+
+ </html>
