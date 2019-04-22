@@ -1,0 +1,249 @@
+<html>  
+  <head>  
+		<meta http-equiv="Content-Type" content="text/html"; charset="utf-8">  
+        <title>弦生成器</title>  
+    <style type="text/css">
+    *{margin:0px;padding:0px;}
+    .wallpaper
+    {
+    position:absolute;
+    top:0px;
+    left:0px;
+    height:100%;
+    width:100%;
+    background-image:url("./pic/2.jpg");
+    background-size:cover;
+    background-repeat:no-repeat;
+    z-index:-3;
+    }
+      #bg{
+        position:absolute;
+        top:0;
+        left:0;
+        height:50%;
+        width:50%;
+        background:url("./pic/hh.jpg");
+        background-size:cover;
+        background-repeat:no-repeat;
+        z-index:-2;
+      }
+      .man{
+        position:absolute;
+        bottom:0;
+        left:calc(10%);
+        height:527px;
+        width:461px;
+        background:url("./pic/h.jpg");
+        background-size:cover;
+        background-repeat:no-repeat;
+        z-index:3;
+      }
+      #box{
+        position:absolute;
+        width:calc(53.9%);
+        background:white;
+        box-shadow:0px 0px 10px -3px #000;
+        border-radius:1000px;
+        z-index:-1;
+      }
+    </style>
+  </head> 
+<body>
+<div style="position:absolute;top:500px;right:50px;font-size:20px;width: 350px;height: 200px;color:black;">
+		<div style="position:absolute;top:50px;left:100px;font-size:20px;color:black;">数据可视化</div>
+		<div style="position:absolute;top:75px;left:100px;font-size:12px;color:#999;">DataVisulization</div>
+		<div style="position:absolute;top:100px;left:100px;font-size:14px;color:black;">蒋汶娟 刘晓豪</div>
+		<div style="position:absolute;top:120px;left:100px;font-size:10px;color:#999;">JiangWenjuan LiuXiaohao</div>
+		<div style="position:absolute;top: 150px;left:100px;font-size: 30px;color:black;font-weight: bold;">D3 Chrod</div>
+	</div>
+<div style="position:absolute;top:20px;left:calc(10%);font-size:20px;width: 350px;height: 75px;color:black;border-radius:10px;background:#EEE;">
+    <div style="background:url('./pic/icon.jpg');height:50px;width:38px;background-size:cover;position:absolute;top:10px;left:10px;"></div>
+    <div style="position:absolute;top:10px;left:calc((100% - 200px) /2);height:40px;width:200px;line-height:40px;font-size:18px;">
+        FreeMidi音乐类型弦图
+    </div>
+    <a href="https://www.freemidi.org" style="text-decoration:none;position:absolute;top:35px;left:calc((100% - 200px) /2);height:40px;width:200px;line-height:40px;font-size:14px;color:#999;">
+        FreeMidi.org
+    </a>
+</div>
+    <div class="wallpaper"></div>
+  <div id="bg"></div>
+  <div class="man"></div>
+  <div id="box"></div>
+	<script src="http://cuc.yingshinet.com/d3.v4.min.js" charset="utf-8"></script>
+	<script>  
+	    var w=window.innerWidth|| document.documentElement.clientWidth|| document.body.clientWidth;
+		var h=window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight;
+		var width = w*0.98;
+		var height =h*0.96;	
+        var svg=d3.select("body")
+                  .append("svg")
+                  .attr("width",width)
+                  .attr("height",height);
+        //初始数据
+        var typename = [
+        
+          "Blues",
+        
+          "Classical",
+        
+          "Country",
+        
+          "Dance / Electric",
+        
+          "Jazz",
+        
+          "Newage",
+        
+          "Pop",
+        
+          "Punk",
+        
+          "R&amp;B Soul",
+        
+          "Rap Hip-Hop",
+        
+          "Rock",
+        
+          "  Folk  ",
+        
+        ""
+        ];      
+	var typedata = [[801,0,0,0,0,0,0,0,0,0,0,0],[0,158,0,0,55,29,57,0,0,0,83,0],[136,0,1885,0,88,0,332,0,0,0,481,0],[0,0,0,1128,0,0,0,0,0,0,0,0],[461,1,96,0,518,50,181,1,0,0,413,0],[0,0,0,0,0,527,0,0,0,0,0,0],[206,61,297,0,319,192,4719,110,0,0,1976,0],[0,0,0,0,0,0,0,1421,0,0,0,0],[235,6,58,0,178,3,549,0,18,0,304,0],[9,0,2,0,9,2,201,6,0,28,120,0],[457,76,408,0,287,199,1950,848,0,0,10047,0],[0,0,0,0,0,0,0,0,0,0,0,816]];
+        
+        
+        //创建弦生成器
+        var chord =d3.chord()
+                    .padAngle(0.03)//节点间隔
+                    .sortSubgroups(d3.ascending);//升序排列
+       
+        //绘制并绑定数据
+        //弦图的<g>元素
+        var gChord=svg.append("g")
+                      .attr("style","transform:translate("+(width/2 + 150)+"px,"+height/2+"px)")
+                      .datum(chord(typedata));//对选择集中每一个元素都绑定相同的数据，这里对每一个g（一个装节点，一个装弦）绑定转换后的弦图布局函数       
+        //节点的<g>元素
+        var gOuter=gChord.append("g");    
+        //弦的<g>元素
+        var gInner=gChord.append("g");
+
+        //绘制节点元素，创建弧生成器
+        var innerRadius=width/6;
+        var outerRadius=innerRadius*1.1;
+
+        //div
+        document.getElementById("box").setAttribute("style","left:"+(width/2 + 150 - outerRadius)+";top:"+(height/2 -outerRadius)+";height:"+(outerRadius*2)+"px;width:"+(outerRadius*2)+"")
+        document.getElementById("bg").setAttribute("style","left:"+(width/2 + 150 - outerRadius-50)+";top:"+(height/2 -outerRadius-50)+";height:"+((outerRadius+50)*2)+"px;width:"+((outerRadius + 50)*2)+"")
+
+        var arcOuter=d3.arc()
+                       .innerRadius(innerRadius)
+                       //.outerRadius(outerRadius);
+        
+        //填加路径绘制代表节点的弧
+        gOuter.selectAll(".outerPath")
+                        .data(function(chords){
+                            console.log(chords.groups);
+                            return chords.groups;//绑定节点数据
+                        })
+                        .enter()
+                        .append("path")
+                        .attr("class","outerPath")
+                        .style("fill",function(d,i){d.outerRadius = outerRadius;return "rgb("+(250-i*35)+",119,131)";})
+                        .style("cursor", "pointer")
+                        .transition()
+                        .ease(d3.easeBounce)
+                        .duration(1500)
+                        .attrTween("d",TweenArc)
+        function TweenArc(b)
+        {            
+            var i=d3.interpolate({endAngle:b.startAngle},b);
+            return function(t){return arcOuter(i(t));}
+        }
+
+        //绘制内部弦
+        //在gInner分组元素中添加路径元素，再使用弦生成器生成路径
+        var arcInner=d3.ribbon()
+                       //.radius(innerRadius);
+            gInner.selectAll(".innerPath")
+                  .data(function(chords){
+                      console.log(chords);                     
+                      return chords;
+                  })
+                  .enter()
+                  .append("path")
+                  .attr("class","innerPath")
+                  
+                  .style("fill",function(d,i){return "rgb("+(250-i*35)+",80,131)";})
+                  .transition()
+                  .ease(d3.easeBounce)
+                  .duration(1500)
+                  .delay(function(d,i){return i * 20})
+                  .attrTween("d",TweenChord)
+
+        function TweenChord(s)
+        {
+            s.source.radius = innerRadius
+            s.target.radius = innerRadius
+            var i=d3.interpolate({source:{endAngle:s.source.startAngle,radius:0},target:{endAngle:s.target.startAngle,radius:0}},s);
+            return function(t){return arcInner(i(t));}
+        }
+        function TweenChord2(s)
+        {
+            s.source.radius = 0
+            s.target.radius = 0
+            var i=d3.interpolate({source:{endAngle:s.source.startAngle,radius:innerRadius},target:{endAngle:s.target.startAngle,radius:innerRadius}},s);
+            return function(t){return arcInner(i(t));}
+        }
+        gOuter.selectAll(".outerPath")
+                        .on("mouseover",fade(0.0))
+                        .on("mouseout",fade(1.0));
+
+        function fade(opacity){
+            //返回一个function(g,i)
+            
+
+           return function(g,i){
+	           	if(opacity == 0)
+	           	{
+	           		gInner.append("text")
+		         	.attr("id","value")
+		         	.attr("x",0)
+		         	.attr("y",0)
+		         	.attr("text-anchor","middle")
+		         	.attr("font-size",50)
+		         	.text(typename[i]);
+	         	
+	           	}
+	           	else{
+	           		d3.select("#value").remove();
+	           	}
+               gOuter.selectAll(".outerPath").filter(function(d){return d.index == i}).attr("stroke",function(){
+               if(opacity==0){return }
+               })
+               .transition().attrTween("d", function(d){
+                    var or = d.outerRadius;
+                    if(opacity == 0){d.outerRadius = outerRadius + 20;}
+                    else{d.outerRadius = outerRadius;}
+                    var i = d3.interpolate({outerRadius:or}, d)
+                    return function(t){return arcOuter(i(t))}
+               })
+               var paths = gInner.selectAll(".innerPath")
+                     .filter(function(d){
+                  
+                         return d.source.index!=i&&d.target.index!=i;
+                     })
+
+                     .transition()
+
+                      .duration(200)
+                      .style("opacity",opacity)
+                      .delay(function(d,i){return i * 10})
+
+               if(opacity==0){paths.attrTween("d",TweenChord2);}
+               else{paths.attrTween("d",TweenChord);}
+
+           }
+        }
+
+    </script> 
+</body>
+</html>

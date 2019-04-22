@@ -16,3 +16,5 @@ CUC 2019-春 数据可视化课题作业
 ![wordTree](./wordTree.png)
 ## Pie
 ![](Pie.png)
+## Chord
+![](Chord.png)
